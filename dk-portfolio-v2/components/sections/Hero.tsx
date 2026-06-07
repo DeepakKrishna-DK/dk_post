@@ -165,25 +165,25 @@ export default function Hero() {
             </a>
           </motion.div>
 
+          {/* Scroll Down Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="flex flex-col items-center gap-3 pointer-events-none optimize-gpu mt-16 md:mt-24"
+          >
+            <div className="w-6 h-10 border-2 border-muted/30 rounded-full flex justify-center p-1.5 backdrop-blur-sm">
+              <motion.div
+                animate={{ y: [0, 16, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-1.5 h-2 bg-primary rounded-full shadow-[0_0_8px_#00E5FF] optimize-gpu"
+              />
+            </div>
+            <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest">Scroll to explore</span>
+          </motion.div>
+
         </div>
       </div>
-
-      {/* Scroll Down Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 pointer-events-none optimize-gpu"
-      >
-        <div className="w-6 h-10 border-2 border-muted/30 rounded-full flex justify-center p-1.5 backdrop-blur-sm">
-          <motion.div
-            animate={{ y: [0, 16, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-            className="w-1.5 h-2 bg-primary rounded-full shadow-[0_0_8px_#00E5FF] optimize-gpu"
-          />
-        </div>
-        <span className="text-[10px] font-mono font-bold text-muted uppercase tracking-widest">Scroll to explore</span>
-      </motion.div>
     </section>
   );
 }
