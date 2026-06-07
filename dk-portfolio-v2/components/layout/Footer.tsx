@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="w-8 h-8 rounded-full overflow-hidden border border-[#00E5FF]/40 shadow-[0_0_10px_rgba(0,229,255,0.2)] transition-transform duration-300 group-hover:scale-105">
-            <img src="/download.png" alt="DK Logo" className="w-full h-full object-cover" />
+            <img src="/download-removebg-preview.png" alt="DK Logo" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
           </div>
           <span className="font-orbitron text-base font-bold text-white tracking-widest group-hover:text-[#00E5FF] transition-colors duration-300">
             d<span className="text-[#00E5FF]">k</span>

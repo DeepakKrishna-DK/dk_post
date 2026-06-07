@@ -52,7 +52,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group" onClick={() => setMobile(false)}>
             <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#00E5FF]/40 shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-transform duration-300 group-hover:scale-105">
-              <img src="/download.png" alt="DK Logo" className="w-full h-full object-cover" />
+              <img src="/download-removebg-preview.png" alt="DK Logo" className="w-full h-full object-cover" />
             </div>
             <span className="font-orbitron text-lg font-bold text-white tracking-widest group-hover:text-[#00E5FF] transition-colors duration-300">
               d<span className="text-[#00E5FF]">k</span>
