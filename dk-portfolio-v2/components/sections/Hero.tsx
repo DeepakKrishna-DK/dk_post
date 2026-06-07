@@ -12,12 +12,22 @@ const PROFESSIONS = ["Cybersecurity Professional", "Security Researcher"];
 
 export default function Hero() {
   const [profIndex, setProfIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(true); // Default true to prevent heavy initial load on mobile
 
   useEffect(() => {
+    // Check if mobile
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     const interval = setInterval(() => {
       setProfIndex(prev => (prev + 1) % PROFESSIONS.length);
     }, 4500); // Loop every 4.5 seconds
-    return () => clearInterval(interval);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
   return (
@@ -25,17 +35,19 @@ export default function Hero() {
 
       {/* Background Cyber Effects & Prism */}
       <div className="absolute inset-0 pointer-events-auto z-0 overflow-hidden">
-        <Prism
-          animationType="rotate"
-          timeScale={0.2}
-          height={4.0}
-          baseWidth={6.0}
-          scale={3.6}
-          hueShift={0}
-          colorFrequency={1}
-          noise={0.1}
-          glow={1.0}
-        />
+        {!isMobile && (
+          <Prism
+            animationType="rotate"
+            timeScale={0.2}
+            height={4.0}
+            baseWidth={6.0}
+            scale={3.6}
+            hueShift={0}
+            colorFrequency={1}
+            noise={0.1}
+            glow={1.0}
+          />
+        )}
         {/* Medium dark overlay to balance brightness and ensure text contrast */}
         <div className="absolute inset-0 bg-background/50 pointer-events-none" />
         
