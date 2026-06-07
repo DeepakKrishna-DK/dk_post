@@ -40,9 +40,8 @@
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    /* Deep noise texture */
-    background-image: radial-gradient(circle at 50% 0%, rgba(8, 145, 178, 0.1) 0%, transparent 50%),
-                      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    /* Deep noise texture removed for maximum scroll performance */
+    background-image: radial-gradient(circle at 50% 0%, rgba(8, 145, 178, 0.1) 0%, transparent 50%);
   }
 
   ::selection { background: rgba(0, 229, 255, 0.25); color: #00E5FF; }
@@ -220,7 +219,8 @@
 /* Mobile specific overrides to prevent slowness */
 @media (max-width: 768px) {
   .card, .card-hover, .glass-panel {
-    backdrop-filter: blur(12px); /* Slightly reduced blur on mobile */
+    backdrop-filter: none; /* Removed blur entirely for max performance on mobile */
+    background: rgba(10, 15, 26, 0.95); /* More solid background to compensate for lack of blur */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important; /* Minimal shadow on mobile */
   }
   

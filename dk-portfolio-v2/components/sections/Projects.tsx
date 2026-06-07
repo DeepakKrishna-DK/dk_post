@@ -141,7 +141,7 @@ export default function Projects() {
                   rotateY: isMobile ? normalizedDiff * -8 : normalizedDiff * -15, // mild turn on mobile
                   zIndex: isActive ? 50 : 40 - Math.abs(normalizedDiff),
                 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                transition={{ duration: isMobile ? 0.25 : 0.5, ease: "easeOut" }}
                 onClick={() => {
                   if (!isActive) setActive(i);
                   else setIsModalOpen(true);
