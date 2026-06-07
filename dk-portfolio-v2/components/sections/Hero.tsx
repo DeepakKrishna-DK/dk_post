@@ -35,7 +35,7 @@ export default function Hero() {
 
       {/* Background Cyber Effects & Prism */}
       <div className="absolute inset-0 pointer-events-auto z-0 overflow-hidden">
-        {!isMobile && (
+        {!isMobile ? (
           <Prism
             animationType="rotate"
             timeScale={0.2}
@@ -47,9 +47,20 @@ export default function Hero() {
             noise={0.1}
             glow={1.0}
           />
+        ) : (
+          <div className="absolute inset-0 opacity-50 mix-blend-screen">
+            <Image 
+              src="/hero-bg-dynamic.png" 
+              alt="Cyber Background" 
+              fill 
+              priority
+              className="object-cover object-center animate-pulse"
+              style={{ animationDuration: '8s' }}
+            />
+          </div>
         )}
         {/* Medium dark overlay to balance brightness and ensure text contrast */}
-        <div className="absolute inset-0 bg-background/50 pointer-events-none" />
+        <div className="absolute inset-0 bg-background/60 pointer-events-none" />
         
         {/* Subtle top-right glow */}
         <div className="absolute inset-0 opacity-[0.2] pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/40 via-transparent to-transparent" />

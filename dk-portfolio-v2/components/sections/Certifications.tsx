@@ -38,14 +38,26 @@ export default function Certifications() {
           </p>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-          {CERTS.map((cert, i) => (
+        <motion.div 
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: { opacity: 0 },
+            show: {
+              opacity: 1,
+              transition: { staggerChildren: 0.15 }
+            }
+          }}
+          className="flex flex-wrap justify-center gap-4 sm:gap-6"
+        >
+          {CERTS.map((cert) => (
             <motion.div
               key={cert.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5, ease: "easeOut" }}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+              }}
               className="card-hover p-5 sm:p-6 flex flex-col items-center text-center gap-4 cursor-default group h-full w-[calc(50%-8px)] sm:w-[calc(33.333%-16px)] lg:w-[185px] xl:w-[190px]"
             >
               {/* Badge icon */}
@@ -61,7 +73,7 @@ export default function Certifications() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

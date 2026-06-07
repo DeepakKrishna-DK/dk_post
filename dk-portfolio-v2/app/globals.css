@@ -24,7 +24,6 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   html {
-    scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: #00E5FF #030712;
   }
@@ -218,15 +217,20 @@
 
 /* Mobile specific overrides to prevent slowness */
 @media (max-width: 768px) {
-  .card, .card-hover, .glass-panel {
-    backdrop-filter: none; /* Removed blur entirely for max performance on mobile */
-    background: rgba(10, 15, 26, 0.95); /* More solid background to compensate for lack of blur */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important; /* Minimal shadow on mobile */
+  /* BLANKET DISABLE all heavy glassmorphism blurs on mobile */
+  *, ::before, ::after {
+    backdrop-filter: none !important;
+  }
+
+  /* Solidify backgrounds since blur is removed */
+  .card, .card-hover, .glass-panel, header {
+    background-color: rgba(10, 15, 26, 0.98) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
   }
   
   .card-hover:hover {
-    transform: translateY(-2px); /* Minimal transform hover on mobile */
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.1), inset 0 0 10px rgba(0, 229, 255, 0.05) !important;
+    transform: none !important; /* Disable transform on hover for mobile */
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.1) !important;
   }
   
   /* Disable extreme noise texturing on mobile */

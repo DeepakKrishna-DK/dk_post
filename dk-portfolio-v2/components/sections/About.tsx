@@ -70,19 +70,25 @@ export default function About() {
 
           {/* ── Right Stats Grid ── */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial="hidden"
+            whileInView="show"
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            variants={{
+              hidden: { opacity: 0 },
+              show: {
+                opacity: 1,
+                transition: { staggerChildren: 0.2, delayChildren: 0.3 }
+              }
+            }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4 optimize-gpu"
           >
             {STATS.map((stat, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: "easeOut" } }
+                }}
                 className="glass-panel p-8 flex flex-col items-center justify-center text-center transition-transform hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(0,229,255,0.1)] optimize-gpu"
               >
                 <div className="text-4xl sm:text-5xl font-bold mb-3 text-gradient-cyan">

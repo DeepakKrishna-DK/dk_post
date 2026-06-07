@@ -17,20 +17,22 @@ export default function LogoLoop({
 }: any) {
   const [isHovered, setIsHovered] = useState(false);
   const [containerWidth, setContainerWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (containerRef.current) {
-      // The scrollWidth of the inner container holds two sets of logos. 
-      // We want to translate exactly half of that width.
       setContainerWidth(containerRef.current.scrollWidth / 2);
     }
     
     const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
       if (containerRef.current) {
         setContainerWidth(containerRef.current.scrollWidth / 2);
       }
     };
+    
+    handleResize(); // Initial check
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [logos, gap]);
@@ -57,8 +59,8 @@ export default function LogoLoop({
 
       {containerWidth > 0 && (
         <motion.div
-          className="flex shrink-0 items-center"
-          style={{ gap: gap }}
+          className="flex shrink-0 items-center optimize-gpu"
+          style={{ gap: gap, willChange: "transform" }}
           animate={{
             x: direction === "left" ? [0, -containerWidth] : [-containerWidth, 0],
           }}
@@ -74,14 +76,14 @@ export default function LogoLoop({
             return (
               <div 
                 key={i} 
-                className={`flex flex-col items-center gap-4 shrink-0 group ${scaleOnHover ? 'cursor-pointer' : ''}`}
+                className={`flex flex-col items-center gap-4 shrink-0 group ${scaleOnHover ? 'cursor-pointer' : ''} optimize-gpu`}
                 title={logo.title || logo.alt}
               >
                 <motion.div 
-                  className="relative flex items-center justify-center rounded-full transition-transform duration-300 group-hover:-translate-y-2" 
-                  style={{ width: logoHeight, height: logoHeight }}
-                  animate={{ y: [0, -8, 0] }}
-                  transition={{ duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
+                  className="relative flex items-center justify-center rounded-full transition-transform duration-300 group-hover:-translate-y-2 optimize-gpu" 
+                  style={{ width: logoHeight, height: logoHeight, willChange: "transform" }}
+                  animate={isMobile ? undefined : { y: [0, -8, 0] }}
+                  transition={isMobile ? undefined : { duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
                 >
                   {/* Outer animated ring */}
                   <div className="absolute inset-0 rounded-full border border-white/5 bg-[#02060D] z-10 transition-colors duration-300 group-hover:border-[#00E5FF]/30" />
