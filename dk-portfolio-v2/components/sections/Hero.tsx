@@ -48,15 +48,17 @@ export default function Hero() {
             glow={1.0}
           />
         ) : (
-          <div className="absolute inset-0 opacity-50 mix-blend-screen">
+          <div className="absolute inset-0 opacity-60 mix-blend-screen">
             <Image 
-              src="/hero-bg-dynamic.png" 
-              alt="Cyber Background" 
+              src="/hero-bg-phoenix.png" 
+              alt="Phoenix Background" 
               fill 
               priority
               className="object-cover object-center animate-pulse"
               style={{ animationDuration: '8s' }}
             />
+            {/* Spotlight Overlay: Bright center, fading to dark at edges */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#02060D_80%)] pointer-events-none" />
           </div>
         )}
         {/* Medium dark overlay to balance brightness and ensure text contrast */}
