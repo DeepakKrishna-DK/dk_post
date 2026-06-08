@@ -60,7 +60,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1">
             {navLinks.map((l) => {
               const href = l.isPage ? l.path! : (isHome ? `#${l.id}` : `/#${l.id}`);
               const isActive = !l.isPage && isHome && active === l.id;
@@ -97,7 +97,7 @@ export default function Navbar() {
             <motion.div
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="hidden md:flex"
+              className="hidden lg:flex"
             >
               <Link
                 href={isHome ? "#contact" : "/#contact"}
@@ -108,7 +108,7 @@ export default function Navbar() {
             </motion.div>
             <button
               onClick={() => setMobile(!mobile)}
-              className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-[#7A93B2]"
+              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-[#7A93B2]"
             >
               {mobile ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -125,14 +125,14 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobile(false)}
-              className="fixed inset-0 z-40 bg-black/60 md:hidden"
+              className="fixed inset-0 z-40 bg-black/60 lg:hidden"
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed right-0 inset-y-0 z-50 w-64 bg-[#061224] border-l border-white/7 flex flex-col pt-20 pb-8 px-5 md:hidden"
+              className="fixed right-0 inset-y-0 z-50 w-64 bg-[#061224] border-l border-white/7 flex flex-col pt-20 pb-8 px-5 lg:hidden"
             >
               {navLinks.map((l, i) => {
                 const href = l.isPage ? l.path! : (isHome ? `#${l.id}` : `/#${l.id}`);

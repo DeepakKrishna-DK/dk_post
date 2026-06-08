@@ -16,7 +16,7 @@ export default function Hero() {
 
   useEffect(() => {
     // Check if mobile
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
@@ -68,7 +68,7 @@ export default function Hero() {
         <div className="absolute inset-0 opacity-[0.2] pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/40 via-transparent to-transparent" />
       </div>
 
-      <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-8 z-10 pt-16 pb-36 md:pb-16 flex flex-col items-center text-center">
+      <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-8 z-10 pt-16 pb-36 lg:pb-16 flex flex-col items-center text-center">
 
         {/* ── Content ── */}
         <div className="space-y-10 flex flex-col items-center w-full">
@@ -170,7 +170,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 2, duration: 1 }}
-            className="flex flex-col items-center gap-3 pointer-events-none optimize-gpu mt-16 md:mt-24"
+            className="flex flex-col items-center gap-3 pointer-events-none optimize-gpu mt-16 lg:mt-24"
           >
             <div className="w-6 h-10 border-2 border-muted/30 rounded-full flex justify-center p-1.5 backdrop-blur-sm">
               <motion.div
