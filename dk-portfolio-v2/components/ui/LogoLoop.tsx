@@ -26,7 +26,12 @@ export default function LogoLoop({
     }
     
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      const userAgentMatch = typeof navigator !== 'undefined' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isIPadOS = typeof navigator !== 'undefined' && typeof document !== 'undefined' && navigator.userAgent.includes("Mac") && "ontouchend" in document;
+      const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+      
+      setIsMobile(userAgentMatch || isIPadOS || window.innerWidth < 1024 || (isTouch && window.innerWidth <= 1366));
+
       if (containerRef.current) {
         setContainerWidth(containerRef.current.scrollWidth / 2);
       }
