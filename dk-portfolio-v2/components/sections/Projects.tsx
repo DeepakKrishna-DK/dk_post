@@ -65,7 +65,12 @@ export default function Projects() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    const checkMobile = () => {
+      const userAgentMatch = typeof navigator !== 'undefined' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isIPadOS = typeof navigator !== 'undefined' && typeof document !== 'undefined' && navigator.userAgent.includes("Mac") && "ontouchend" in document;
+      const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+      setIsMobile(userAgentMatch || isIPadOS || window.innerWidth < 1024 || (isTouch && window.innerWidth <= 1366));
+    };
     checkMobile();
     window.addEventListener("resize", checkMobile, { passive: true });
     return () => window.removeEventListener("resize", checkMobile);

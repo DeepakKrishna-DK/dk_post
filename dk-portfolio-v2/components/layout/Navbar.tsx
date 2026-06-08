@@ -45,7 +45,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#02060D]/95 backdrop-blur-md border-b border-white/5 shadow-lg" : "bg-transparent"
+        className={`fixed top-0 inset-x-0 z-[60] transition-all duration-300 ${scrolled ? "bg-[#02060D]/95 backdrop-blur-md border-b border-white/5 shadow-lg" : "bg-transparent"
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
@@ -108,9 +108,39 @@ export default function Navbar() {
             </motion.div>
             <button
               onClick={() => setMobile(!mobile)}
-              className="lg:hidden w-9 h-9 flex items-center justify-center rounded-lg border border-white/10 text-[#7A93B2]"
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-xl border border-white/10 text-[#7A93B2] hover:text-[#00E5FF] hover:bg-white/5 transition-all relative z-50"
+              aria-label="Toggle Menu"
             >
-              {mobile ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              <motion.div 
+                animate={mobile ? "open" : "closed"}
+                initial={false}
+                className="flex flex-col items-center justify-center gap-[5px] w-5 h-[16px]"
+              >
+                <motion.span
+                  variants={{
+                    closed: { rotate: 0, y: 0 },
+                    open: { rotate: 45, y: 7 },
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="w-full h-[2px] bg-current rounded-full block origin-center"
+                />
+                <motion.span
+                  variants={{
+                    closed: { opacity: 1, scale: 1 },
+                    open: { opacity: 0, scale: 0 },
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="w-full h-[2px] bg-current rounded-full block origin-center"
+                />
+                <motion.span
+                  variants={{
+                    closed: { rotate: 0, y: 0 },
+                    open: { rotate: -45, y: -7 },
+                  }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="w-full h-[2px] bg-current rounded-full block origin-center"
+                />
+              </motion.div>
             </button>
           </div>
         </div>
@@ -125,27 +155,39 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobile(false)}
-              className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
             />
             <motion.div
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed right-0 inset-y-0 z-50 w-64 bg-[#061224] border-l border-white/7 flex flex-col pt-20 pb-8 px-5 lg:hidden"
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed right-0 inset-y-0 z-50 w-64 bg-[#02060D]/60 backdrop-blur-2xl border-l border-white/10 flex flex-col pt-20 pb-8 px-5 lg:hidden shadow-2xl"
             >
               {navLinks.map((l, i) => {
                 const href = l.isPage ? l.path! : (isHome ? `#${l.id}` : `/#${l.id}`);
-                const isActive = !l.isPage && isHome && active === l.id;
+                const isActive = l.isPage ? pathname === l.path : (isHome && active === l.id);
+                
+                const linkClasses = `relative flex items-center py-3 -mr-5 pr-5 text-sm font-medium border-b border-white/5 transition-colors ${isActive ? "text-[#00E5FF]" : "text-[#7A93B2] hover:text-white"}`;
+                
+                const Indicator = isActive && (
+                  <motion.div
+                    layoutId="mobile-active-indicator"
+                    className="absolute right-0 w-1.5 h-3/4 bg-[#00E5FF] rounded-l-md shadow-[0_0_10px_#00E5FF]"
+                  />
+                );
+
                 return (
                   <motion.div key={l.id} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }}>
                     {l.isPage || !isHome ? (
-                      <Link href={href} onClick={() => setMobile(false)} className="block py-3 text-sm font-medium text-[#7A93B2] hover:text-white border-b border-white/5">
+                      <Link href={href} onClick={() => setMobile(false)} className={linkClasses}>
                         {l.label}
+                        {Indicator}
                       </Link>
                     ) : (
-                      <a href={href} onClick={() => setMobile(false)} className={`block py-3 text-sm font-medium border-b border-white/5 ${isActive ? "text-[#00E5FF]" : "text-[#7A93B2] hover:text-white"}`}>
+                      <a href={href} onClick={() => setMobile(false)} className={linkClasses}>
                         {l.label}
+                        {Indicator}
                       </a>
                     )}
                   </motion.div>

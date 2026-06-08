@@ -15,8 +15,20 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(true); // Default true to prevent heavy initial load on mobile
 
   useEffect(() => {
-    // Check if mobile
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    // Check if mobile or tablet (including touch screens and iPadOS)
+    const checkMobile = () => {
+      // Check for mobile user agents
+      const userAgentMatch = typeof navigator !== 'undefined' && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      // Check for iPadOS disguised as Mac
+      const isIPadOS = typeof navigator !== 'undefined' && typeof document !== 'undefined' && navigator.userAgent.includes("Mac") && "ontouchend" in document;
+      // Generic touch check
+      const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
+      
+      // We consider it a "mobile/tablet" device if it has a mobile UA, or is iPadOS, or is a small screen, 
+      // or is a touch screen up to standard laptop width (1366px).
+      // This ensures tablets in landscape mode still get the optimized mobile view, preventing WebGL lag.
+      setIsMobile(userAgentMatch || isIPadOS || window.innerWidth < 1024 || (isTouch && window.innerWidth <= 1366));
+    };
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
@@ -48,17 +60,22 @@ export default function Hero() {
             glow={1.0}
           />
         ) : (
-          <div className="absolute inset-0 opacity-60 mix-blend-screen">
-            <Image 
-              src="/hero-bg-phoenix.png" 
-              alt="Phoenix Background" 
-              fill 
-              priority
-              className="object-cover object-center animate-pulse"
-              style={{ animationDuration: '8s' }}
-            />
+          <div className="absolute inset-0 mix-blend-screen">
+            <motion.div
+              animate={{ opacity: [0.6, 0.95, 0.6] }}
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <Image 
+                src="/hero-bg-phoenix.png" 
+                alt="Phoenix Background" 
+                fill 
+                priority
+                className="object-cover object-center"
+              />
+            </motion.div>
             {/* Spotlight Overlay: Bright center, fading to dark at edges */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#02060D_80%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_15%,#02060D_85%)] pointer-events-none" />
           </div>
         )}
         {/* Medium dark overlay to balance brightness and ensure text contrast */}

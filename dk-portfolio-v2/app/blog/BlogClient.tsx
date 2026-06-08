@@ -46,7 +46,7 @@ export default function BlogClient() {
   });
 
   return (
-    <main className="pt-24 pb-20 min-h-screen">
+    <div className="pt-24 pb-20 min-h-screen">
       {/* Page header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/30 via-background to-background" />
@@ -188,6 +188,6 @@ export default function BlogClient() {
           </motion.div>
         )}
       </div>
-    </main>
+    </div>
   );
 }

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { POSTS } from "@/lib/blog-data";
 import { ArrowLeft, Calendar, Clock, Tag, Users, ArrowUpRight, BookOpen, FileText } from "lucide-react";
+import PageWrapper from "@/components/ui/PageWrapper";
 
 export async function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
@@ -24,7 +25,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound();
 
   return (
-    <main className="pt-24 pb-20 min-h-screen">
+    <PageWrapper>
+      <div className="pt-24 pb-20 min-h-screen">
       <div className="max-w-5xl mx-auto px-4 md:px-8">
         {/* Back */}
         <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-[#7A93B2] hover:text-[#00E5FF] transition-colors mb-10">
@@ -156,6 +158,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </div>
       </div>
-    </main>
+      </div>
+    </PageWrapper>
   );
 }
