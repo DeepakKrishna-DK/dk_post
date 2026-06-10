@@ -78,10 +78,10 @@ export default function Contact() {
         >
           <div className="section-eyebrow justify-center">GET in Touch</div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-            Lets Build something <span className="text-[#00E5FF]">Together</span> <br /> Initiate Secure <span className="text-[#00E5FF]">Connection</span>
+            Let&apos;s Build something <span className="text-[#00E5FF]">Together</span> <br /> Initiate Secure <span className="text-[#00E5FF]">Connection</span>
           </h2>
           <p className="text-[#7A93B2] max-w-2xl mx-auto text-lg">
-            I&apos;m always open to new challenges & oppurtunities, security assessments, and innovative collaborations. Feel free to reach out!
+            I&apos;m always open to new challenges & opportunities, security assessments, and innovative collaborations. Feel free to reach out!
           </p>
         </motion.div>
 
