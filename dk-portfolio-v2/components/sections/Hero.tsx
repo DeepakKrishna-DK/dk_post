@@ -137,12 +137,22 @@ export default function Hero() {
             transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
             className="flex flex-col items-center gap-6 w-full relative z-20 pointer-events-auto optimize-gpu"
           >
-            <div className="flex items-center gap-3 text-xs sm:text-sm font-mono font-bold text-accent uppercase tracking-widest bg-surface-2/60 px-5 py-2 rounded-full backdrop-blur-md border border-accent/30 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent shadow-[0_0_10px_#10B981]"></span>
-              </span>
-              Available For Internships
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <a href="#publications" className="flex items-center gap-3 text-xs sm:text-sm font-mono font-bold text-[#D6982C] uppercase tracking-widest bg-[#D6982C]/10 px-5 py-2 rounded-full backdrop-blur-md border border-[#D6982C]/30 shadow-[0_0_20px_rgba(214,152,44,0.15)] hover:bg-[#D6982C]/20 transition-colors">
+                <span className="relative flex h-3 w-3 items-center justify-center">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D6982C] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#D6982C] shadow-[0_0_10px_#D6982C]"></span>
+                </span>
+                🏆 Best Research Paper • ICNEXT'26
+              </a>
+
+              <div className="flex items-center gap-3 text-xs sm:text-sm font-mono font-bold text-accent uppercase tracking-widest bg-surface-2/60 px-5 py-2 rounded-full backdrop-blur-md border border-accent/30 shadow-[0_0_20px_rgba(16,185,129,0.1)]">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent shadow-[0_0_10px_#10B981]"></span>
+                </span>
+                Available For Internships
+              </div>
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 max-w-4xl">
