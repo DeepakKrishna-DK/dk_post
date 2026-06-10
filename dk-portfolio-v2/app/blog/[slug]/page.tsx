@@ -51,6 +51,34 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   // Create share URL
   const shareUrl = `https://dk-portfolio.vercel.app/blog/${slug}`;
 
+  // Calculate related posts based on shared concepts (tags)
+  const relatedPosts = allPosts
+    .filter((p) => p.slug !== slug)
+    .map((p) => {
+      let score = 0;
+      
+      // Check for overlapping or similar tags
+      p.meta.tags.forEach((t1) => {
+        const tag1 = t1.toLowerCase();
+        post.tags.forEach((t2) => {
+          const tag2 = t2.toLowerCase();
+          if (tag1.includes(tag2) || tag2.includes(tag1)) {
+            score += 2; // Strong match (e.g. "AI" matches "Artificial Intelligence")
+          }
+        });
+      });
+
+      // Bonus points for matching category
+      if (p.meta.category === post.category) {
+        score += 1;
+      }
+
+      return { ...p, score };
+    })
+    .filter((p) => p.score > 1) // Only keep posts that actually share a concept
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 2);
+
   return (
     <PageWrapper>
       <div className="pt-24 pb-20 min-h-screen">
@@ -146,27 +174,29 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {/* Related posts */}
-        <div className="mt-20 pt-10 border-t border-white/10">
-          <h3 className="text-lg font-bold text-white mb-6">Related Articles</h3>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {allPosts.filter((p) => p.slug !== slug).slice(0, 2).map((p) => (
-              <Link key={p.slug} href={`/blog/${p.slug}`}>
-                <div className="card-hover p-5 group h-full">
-                  <span
-                    className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase font-mono mb-3"
-                    style={{ color: p.meta.categoryColor, background: `${p.meta.categoryColor}15` }}
-                  >
-                    {p.meta.categoryLabel}
-                  </span>
-                  <h4 className="text-sm font-semibold text-white group-hover:text-[#00E5FF] transition-colors leading-snug">
-                    {p.meta.title}
-                  </h4>
-                  <p className="text-xs text-[#7A93B2] mt-2">{p.meta.readTime}</p>
-                </div>
-              </Link>
-            ))}
+        {relatedPosts.length > 0 && (
+          <div className="mt-20 pt-10 border-t border-white/10">
+            <h3 className="text-lg font-bold text-white mb-6">Related Articles</h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {relatedPosts.map((p) => (
+                <Link key={p.slug} href={`/blog/${p.slug}`}>
+                  <div className="card-hover p-5 group h-full">
+                    <span
+                      className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase font-mono mb-3"
+                      style={{ color: p.meta.categoryColor, background: `${p.meta.categoryColor}15` }}
+                    >
+                      {p.meta.categoryLabel}
+                    </span>
+                    <h4 className="text-sm font-semibold text-white group-hover:text-[#00E5FF] transition-colors leading-snug">
+                      {p.meta.title}
+                    </h4>
+                    <p className="text-xs text-[#7A93B2] mt-2">{p.meta.readTime}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       </div>
     </PageWrapper>
