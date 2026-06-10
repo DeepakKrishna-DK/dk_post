@@ -24,9 +24,9 @@ export async function GET() {
   const rssFeed = `<?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0">
       <channel>
-        <title>Deepak P S - Research & Insights</title>
+        <title><![CDATA[Deepak P S - Research & Insights]]></title>
         <link>${siteUrl}/blog</link>
-        <description>Latest cybersecurity research and insights from Deepak P S.</description>
+        <description><![CDATA[Latest cybersecurity research and insights from Deepak P S.]]></description>
         ${feedItems}
       </channel>
     </rss>
