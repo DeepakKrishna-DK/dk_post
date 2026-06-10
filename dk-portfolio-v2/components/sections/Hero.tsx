@@ -23,7 +23,7 @@ export default function Hero() {
       const isIPadOS = typeof navigator !== 'undefined' && typeof document !== 'undefined' && navigator.userAgent.includes("Mac") && "ontouchend" in document;
       // Generic touch check
       const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
-      
+
       // We consider it a "mobile/tablet" device if it has a mobile UA, or is iPadOS, or is a small screen, 
       // or is a touch screen up to standard laptop width (1366px).
       // This ensures tablets in landscape mode still get the optimized mobile view, preventing WebGL lag.
@@ -66,10 +66,10 @@ export default function Hero() {
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
               className="absolute inset-0"
             >
-              <Image 
-                src="/hero-bg-phoenix.png" 
-                alt="Phoenix Background" 
-                fill 
+              <Image
+                src="/hero-bg-phoenix.png"
+                alt="Phoenix Background"
+                fill
                 priority
                 className="object-cover object-center"
               />
@@ -80,7 +80,7 @@ export default function Hero() {
         )}
         {/* Medium dark overlay to balance brightness and ensure text contrast */}
         <div className="absolute inset-0 bg-background/60 pointer-events-none" />
-        
+
         {/* Subtle top-right glow */}
         <div className="absolute inset-0 opacity-[0.2] pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/40 via-transparent to-transparent" />
       </div>
@@ -187,7 +187,7 @@ export default function Hero() {
             <a href="#projects" className="btn-primary group text-lg px-8 py-4">
               View Projects <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </a>
-            <a href="https://drive.google.com/file/d/19wcgQQwu0fyfK1ANr_SzaYv1QYWQKIjw/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-outline group text-lg px-8 py-4">
+            <a href="https://drive.google.com/file/d/1yDZejLwWCBex4Dc_Dwh53WaUoEBAUoOj/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-outline group text-lg px-8 py-4">
               View CV <Download className="w-5 h-5 ml-1 group-hover:translate-y-1 transition-transform duration-300" />
             </a>
           </motion.div>
