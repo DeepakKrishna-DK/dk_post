@@ -62,88 +62,79 @@ export default function LogoLoop({
         </>
       )}
 
-      {containerWidth > 0 && (
-        <motion.div
-          className="flex shrink-0 items-center optimize-gpu"
-          style={{ gap: gap, willChange: "transform" }}
-          animate={{
-            x: direction === "left" ? [0, -containerWidth] : [-containerWidth, 0],
-          }}
-          transition={{
-            repeat: Infinity,
-            ease: "linear",
-            duration: currentDuration,
-          }}
-        >
-          {/* Render twice for a seamless infinite loop */}
-          {[...logos, ...logos].map((logo, i) => {
-            const color = logo.color || "#00E5FF";
-            return (
-              <div 
-                key={i} 
-                className={`flex flex-col items-center gap-4 shrink-0 group ${scaleOnHover ? 'cursor-pointer' : ''} optimize-gpu`}
-                title={logo.title || logo.alt}
-              >
-                <motion.div 
-                  className="relative flex items-center justify-center rounded-full transition-transform duration-300 group-hover:-translate-y-2 optimize-gpu" 
-                  style={{ width: logoHeight, height: logoHeight, willChange: "transform" }}
-                  animate={isMobile ? undefined : { y: [0, -8, 0] }}
-                  transition={isMobile ? undefined : { duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
+      <motion.div
+        className="flex shrink-0 items-center optimize-gpu"
+        style={{ willChange: "transform" }}
+        animate={{
+          x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
+        }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: currentDuration,
+        }}
+      >
+        {/* Render two identical blocks for a seamless loop */}
+        {[0, 1].map((blockIdx) => (
+          <div 
+            key={blockIdx} 
+            className="flex shrink-0 items-center" 
+            style={{ gap: gap, paddingRight: gap }}
+          >
+            {logos.map((logo, i) => {
+              const color = logo.color || "#00E5FF";
+              return (
+                <div 
+                  key={i} 
+                  className={`flex flex-col items-center gap-4 shrink-0 group ${scaleOnHover ? 'cursor-pointer' : ''} optimize-gpu`}
+                  title={logo.title || logo.alt}
                 >
-                  {/* Outer animated ring */}
-                  <div className="absolute inset-0 rounded-full border border-white/5 bg-[#02060D] z-10 transition-colors duration-300 group-hover:border-[#00E5FF]/30" />
+                  <motion.div 
+                    className="relative flex items-center justify-center rounded-full transition-transform duration-300 group-hover:-translate-y-2 optimize-gpu" 
+                    style={{ width: logoHeight, height: logoHeight, willChange: "transform" }}
+                    animate={isMobile ? undefined : { y: [0, -8, 0] }}
+                    transition={isMobile ? undefined : { duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
+                  >
+                    <div className="absolute inset-0 rounded-full border border-white/5 bg-[#02060D] z-10 transition-colors duration-300 group-hover:border-[#00E5FF]/30" />
+                    
+                    <div 
+                      className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-300 -z-10"
+                      style={{ background: color }}
+                    />
+                    
+                    <div 
+                      className="absolute inset-[2px] rounded-full opacity-10"
+                      style={{ background: color }}
+                    />
+                    
+                    <div className="relative z-20 font-orbitron font-bold text-white transition-colors duration-300 flex items-center justify-center" style={{ textShadow: `0 0 15px ${color}`, fontSize: logoHeight * 0.3 }}>
+                      {logo.src ? (
+                        <img 
+                          src={logo.src} 
+                          alt={logo.title} 
+                          style={{ width: logoHeight * 0.5, height: logoHeight * 0.5 }}
+                          className="transition-transform duration-300 group-hover:scale-110 drop-shadow-md" 
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                          }}
+                        />
+                      ) : null}
+                      <span className={logo.src ? 'hidden' : ''}>
+                        {logo.title?.substring(0, 2).toUpperCase()}
+                      </span>
+                    </div>
+                  </motion.div>
                   
-                  {/* Hover glow */}
-                  <div 
-                    className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-300 -z-10"
-                    style={{ background: color }}
-                  />
-                  
-                  {/* Inner glowing circle */}
-                  <div 
-                    className="absolute inset-[2px] rounded-full opacity-10"
-                    style={{ background: color }}
-                  />
-                  
-                  <div className="relative z-20 font-orbitron font-bold text-white transition-colors duration-300 flex items-center justify-center" style={{ textShadow: `0 0 15px ${color}`, fontSize: logoHeight * 0.3 }}>
-                    {logo.src ? (
-                      <img 
-                        src={logo.src} 
-                        alt={logo.title} 
-                        style={{ width: logoHeight * 0.5, height: logoHeight * 0.5 }}
-                        className="transition-transform duration-300 group-hover:scale-110 drop-shadow-md" 
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                          e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                        }}
-                      />
-                    ) : null}
-                    <span className={logo.src ? 'hidden' : ''}>
-                      {logo.title?.substring(0, 2).toUpperCase()}
-                    </span>
-                  </div>
-                </motion.div>
-                
-                <span className="text-sm font-medium text-[#7A93B2] group-hover:text-white transition-colors text-center leading-tight max-w-[120px]">
-                  {logo.title}
-                </span>
-              </div>
-            );
-          })}
-        </motion.div>
-      )}
-
-      {/* Invisible ref target to calculate width correctly on first render before motion takes over */}
-      {containerWidth === 0 && (
-         <div ref={containerRef} className="flex shrink-0 items-center invisible absolute" style={{ gap: gap }}>
-           {[...logos, ...logos].map((logo, i) => (
-            <div key={`hidden-${i}`} className="flex flex-col items-center gap-4">
-               <div style={{ width: logoHeight, height: logoHeight }} />
-               <span className="text-sm max-w-[120px]">{logo.title}</span>
-            </div>
-           ))}
-         </div>
-      )}
+                  <span className="text-sm font-medium text-[#7A93B2] group-hover:text-white transition-colors text-center leading-tight max-w-[120px]">
+                    {logo.title}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 }
