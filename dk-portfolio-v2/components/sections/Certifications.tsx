@@ -5,13 +5,10 @@ import { Shield, ArrowUpRight } from "lucide-react";
 
 const CERTS = [
   { name: "Cybersecurity", org: "Agartas Edu Tech", color: "#00E5FF", abbr: "C" },
-  { name: "HackFest'25", org: "BTI College", color: "#05DD5B", abbr: "HF" },
-  { name: "HackHive'25", org: "CBIT College", color: "#4207CB", abbr: "H" },
-  { name: "Quantum Quest'25", org: "CBIT College", color: "#7C2FE9", abbr: "Q" },
-  { name: "AWS", org: "CBIT College", color: "#1463D9", abbr: "AWS" },
+  { name: "AWS", org: "CBIT College", color: "#1c67d6ff", abbr: "AWS" },
   { name: "MS Elevate-AICTE", org: "AICTE", color: "#10EFC6", abbr: "MS" },
-  { name: "Computer Networks", org: "CBIT College", color: "#B51FC3", abbr: "CN" },
-  { name: "AI Unplugged", org: "CBIT College", color: "#83B88A", abbr: "AI" },
+  { name: "Computer Networks", org: "CBIT College", color: "#960da2ff", abbr: "CN" },
+  { name: "AI Unplugged", org: "CBIT College", color: "#51ac5dff", abbr: "AI" },
   { name: "i-Sphere'26", org: "COPS", color: "#87E423", abbr: "i" },
   { name: "ICNEXT'26", org: "ICNEXT", color: "#D6982C", abbr: "I" },
   { name: "NCRTEST'25", org: "NCRTEST", color: "#E94619", abbr: "N" },
@@ -38,7 +35,7 @@ export default function Certifications() {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-50px" }}
