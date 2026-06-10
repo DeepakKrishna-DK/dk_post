@@ -45,6 +45,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!postData) notFound();
 
   const post = postData.meta;
+  const content = postData.content;
+  const allPosts = getAllPosts();
+  
   // Create share URL
   const shareUrl = `https://dk-portfolio.vercel.app/blog/${slug}`;
 
