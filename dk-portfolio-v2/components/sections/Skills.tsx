@@ -121,7 +121,7 @@ export default function Skills() {
             direction="left"
             logoHeight={60}
             gap={24}
-            hoverSpeed={0}
+            hoverSpeed={80}
             scaleOnHover={true}
             fadeOut={true}
             fadeOutColor="#02060D"
