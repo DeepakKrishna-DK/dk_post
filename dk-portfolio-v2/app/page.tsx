@@ -23,12 +23,12 @@ export default function Home() {
     <PageWrapper>
       <Hero />
       <About />
-      <Skills />
-      <Projects />
-      <Certifications />
-      <Education />
-      <Publications />
       <Experience />
+      <Publications />
+      <Projects />
+      <Skills />
+      <Education />
+      <Certifications />
       <Achievements />
       <Dashboard />
       <Contact />

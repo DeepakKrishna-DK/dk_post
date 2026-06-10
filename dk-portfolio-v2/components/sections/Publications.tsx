@@ -10,7 +10,7 @@ const PUBLICATIONS = [
     authors: "Deepak P S",
     conference: "ICNEXT'26",
     date: "MAR 2026",
-    doi: "#",
+    doi: "/blog/rudras-firewall-architecture",
     badge: "Best Research Paper",
     description: "A novel AI-native firewall architecture simulating the human immune system for Zero-Trust networks, dynamically identifying and mitigating zero-day threats through cognitive pattern recognition.",
   },
@@ -19,7 +19,7 @@ const PUBLICATIONS = [
     authors: "Bhanu kiran R, Deepak P S, Nithin S, Dr. Vasudeva R",
     conference: "NCETICT 2024 / BookRivers",
     date: "FEB 2026",
-    doi: "https://www.bookrivers.com/book/tech-horizon-proceedings-of-ncetict-2024",
+    doi: "/blog/ai-in-drug-discovery",
     description: "A thorough examination of current trends in AI-enabled drug discovery, focusing on critical activities such as target identification, hit identification, ADMET prediction, and lead optimization.",
   },
   {
@@ -27,7 +27,7 @@ const PUBLICATIONS = [
     authors: "Deepak P S, Nithin S",
     conference: "Independent Research",
     date: "JUN 2026",
-    doi: "#",
+    doi: "/blog/hylexcrypt-tu2050",
     description: "An open-source, cross-platform toolkit integrating Argon2id, dual-mode Authenticated Encryption (ChaCha20-Poly1305 / AES-256-GCM), and adaptive LSB steganography.",
   }
 ];
