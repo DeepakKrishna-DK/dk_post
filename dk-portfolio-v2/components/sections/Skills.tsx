@@ -1,26 +1,25 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Wrench, Network, Lock, Cloud, Cpu, Code2 } from "lucide-react";
+import { Shield, Wrench, Network, Lock, Cloud, Code2 } from "lucide-react";
 import LogoLoop from "../ui/LogoLoop";
 
 const COLORS = ["#00E5FF", "#00FF66", "#F97316", "#8B5CF6", "#F43F5E", "#3B82F6", "#EAB308", "#10B981", "#EC4899", "#A855F7"];
 
 const SKILL_CATEGORIES = [
   {
-    title: "Cybersecurity & Pentest",
+    title: "Cybersecurity & Pentesting",
     icon: Shield,
     skills: [
       { name: "Ethical Hacking" },
-      { name: "Penetration Testing (VAPT)" },
+      { name: "VAPT" },
       { name: "Threat Modelling" },
-      { name: "Threat Hunting" },
       { name: "Incident Response" },
-      { name: "Red Team / Blue Team" },
+      { name: "MITRE ATT&CK" },
       { name: "SOC Operations" },
-      { name: "MITRE ATT&CK Framework" },
       { name: "Privilege Escalation" },
-      { name: "DevSecOps" },
+      { name: "CVE Analysis" },
+      { name: "OWASP Top 10" },
     ]
   },
   {
@@ -32,68 +31,31 @@ const SKILL_CATEGORIES = [
       { name: "Burp Suite", logo: "burpsuite" },
       { name: "Wireshark", logo: "wireshark" },
       { name: "Nmap", logo: "nmap" },
-      { name: "OWASP Testing Tools", logo: "owasp" },
+      { name: "Splunk", logo: "splunk" },
       { name: "CISCO Packet Tracer", logo: "cisco" },
     ]
   },
   {
-    title: "Network & Infrastructure Security",
+    title: "Network & Infrastructure",
     icon: Network,
     skills: [
       { name: "IDS/IPS" },
       { name: "SIEM" },
-      { name: "DPI" },
       { name: "Firewall Engineering" },
       { name: "TCP/IP" },
       { name: "DNS" },
       { name: "HTTP/S" },
-      { name: "VPN" },
       { name: "Zero Trust Architecture" },
-      { name: "Cloud-Native Security" },
-      { name: "OWASP Top 10" },
       { name: "Linux Hardening", logo: "linux" },
     ]
   },
   {
-    title: "Cryptography & Blockchain",
+    title: "Cryptography",
     icon: Lock,
     skills: [
       { name: "AES-256" },
       { name: "RSA" },
-      { name: "Steganography" },
-      { name: "LSB" },
-      { name: "Blockchain" },
-      { name: "Smart Contracts" },
-      { name: "Decentralized Identity" },
-      { name: "QR Code Systems" },
-    ]
-  },
-  {
-    title: "Cloud & DevOps",
-    icon: Cloud,
-    skills: [
-      { name: "Microsoft Azure", logo: "microsoftazure" },
-      { name: "AWS", logo: "amazonaws" },
-      { name: "Docker", logo: "docker" },
-      { name: "CI/CD Pipelines" },
-      { name: "IaC" },
-      { name: "Cloud Security" },
-      { name: "Cloud Administration" },
-    ]
-  },
-  {
-    title: "AI / ML & AI Security",
-    icon: Cpu,
-    skills: [
-      { name: "Machine Learning" },
-      { name: "Deep Learning" },
-      { name: "Generative AI" },
-      { name: "RAG Systems" },
-      { name: "TensorFlow", logo: "tensorflow" },
-      { name: "Google Vertex AI", logo: "google" },
-      { name: "Agentic AI" },
-      { name: "AI Security" },
-      { name: "Prompt Engineering" },
+      { name: "LSB Steganography" },
     ]
   },
   {
@@ -103,16 +65,16 @@ const SKILL_CATEGORIES = [
       { name: "Python", logo: "python" },
       { name: "JavaScript", logo: "javascript" },
       { name: "TypeScript", logo: "typescript" },
-      { name: "Java", logo: "openjdk" },
       { name: "Rust", logo: "rust" },
-      { name: "Go", logo: "go" },
-      { name: "Node.js", logo: "nodedotjs" },
-      { name: "React.js", logo: "react" },
-      { name: "REST APIs" },
-      { name: "HTML5", logo: "html5" },
-      { name: "CSS3", logo: "css3" },
-      { name: "Tailwind CSS", logo: "tailwindcss" },
-      { name: "Git", logo: "git" },
+    ]
+  },
+  {
+    title: "Cloud",
+    icon: Cloud,
+    skills: [
+      { name: "Microsoft Azure", logo: "microsoftazure" },
+      { name: "AWS", logo: "amazonaws" },
+      { name: "Docker", logo: "docker" },
     ]
   }
 ];

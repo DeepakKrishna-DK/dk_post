@@ -1,0 +1,149 @@
+---
+title: "HylexCrypt TU2050: A Unified Hybrid Steganography–Cryptography Framework with Adaptive Embedding, Authenticated Encryption, and Operational Security Features"
+excerpt: "HylexCrypt addresses critical gaps in existing open-source steganography tools (Steghide,OpenStego, OutGuess) by integrating: Argon2id memory-hard key derivation, dual-mode authenticated encryption (ChaCha20-Poly1305 / AES-256-GCM), adaptive LSB steganographic embedding for PNG and WAV carriers, Reed-Solomon forward error correction, logical payload expiry with automated wipe scheduling, and device-binding via hardware fingerprinting."
+date: "Jun 2026"
+readTime: "15 min read"
+category: "research"
+categoryLabel: "Research"
+categoryColor: "#1072e9ff"
+tags: ["steganography", "cryptography", "Python", "information hiding", "Encryption/Decryption", "Research"]
+externalLink: "https://doi.org/10.5281/zenodo.20622278"
+statusMessage: "This paper is published research artifact available on Zenodo. You can read the full publication at the external link below."
+contributors:
+  - name: "Deepak P S"
+    role: "Co-Author"
+    link: "mailto:deepakkrishnark@gmail.com"
+  - name: "Nithin S"
+    role: "Co-Author"
+    link: "https://www.linkedin.com/in/nithin-s-67a8802a5/"
+---
+
+## Abstract
+
+Modern digital communication demands information-hiding mechanisms that combine both stealth and cryptographic strength. Existing steganography tools either lack robust encryption, rely on outdated key derivation functions, or offer no operational safeguards such as timed self-destruction or carrier integrity verification. 
+
+This paper presents **HylexCrypt TU2050**, an open-source, cross-platform toolkit that integrates:
+- Argon2id key derivation
+- Dual-mode Authenticated Encryption with Associated Data (AEAD) via ChaCha20-Poly1305 and AES-256-GCM
+- Adaptive Least Significant Bit (LSB) steganography for PNG and WAV carriers
+- Optional Reed-Solomon forward error correction (FEC)
+- Logical payload expiry with automated wipe scheduling
+- Device-binding through hardware fingerprinting
+
+Our analysis demonstrates that HylexCrypt TU2050 addresses critical gaps in existing tools and provides a practical, research-extensible foundation for next-generation information-hiding systems.
+
+---
+
+## 1. Introduction
+
+The convergence of steganography and cryptography addresses a fundamental challenge in digital security: not merely protecting the content of a message, but concealing its very existence. While cryptography renders a message unreadable to unauthorized parties, steganography hides the fact that a message was sent at all. Used in combination, these disciplines provide a two-layer defence that is substantially harder to defeat than either technique in isolation.
+
+Despite the theoretical maturity of both fields, widely adopted open-source tools such as Steghide, OpenStego, and OutGuess exhibit significant deficiencies: outdated or absent key derivation functions, symmetric encryption without authentication guarantees, no support for ephemeral payloads, and no mechanism to bind ciphertexts to a specific device. 
+
+HylexCrypt TU2050 was designed to close these gaps. It is an all-in-one, open-source Python toolkit that treats steganography and cryptography as inseparable components of a single secure pipeline.
+
+---
+
+## 2. Related Work
+
+### 2.1 Classical Steganography Tools
+**Steghide** is one of the most widely cited image/audio steganography tools, employing a graph-theoretic embedding approach and optional AES encryption. However, its key derivation relies on PBKDF2 with limited iteration counts, and its encryption layer does not provide authentication.
+**OpenStego** supports invisible watermarking and data hiding in PNG images using AES, but does not implement authenticated encryption or memory-hard KDFs. **OutGuess** focuses on statistical indistinguishability but provides no native encryption layer whatsoever.
+
+### 2.2 Academic Steganographic Research
+Recent academic work has explored frequency-domain embedding via the Discrete Cosine Transform (DCT), saliency-map guided LSB placement to maximize perceptual quality, and Ant Colony Optimization (ACO) for adaptive pixel selection. GAN-based neural steganography has demonstrated significantly improved statistical imperceptibility compared to spatial-domain methods.
+
+### 2.3 Cryptographic Foundations
+**Argon2id**, winner of the 2015 Password Hashing Competition, is the current OWASP and NIST-recommended KDF for password-based key derivation. **ChaCha20-Poly1305** is specified in RFC 8439 and is preferred in contexts where hardware AES acceleration is unavailable, offering strong side-channel resistance. **AES-256-GCM** provides hardware-accelerated AEAD on modern processors.
+
+---
+
+## 3. System Architecture
+
+HylexCrypt TU2050 is implemented in Python 3.9+ and structured as both a command-line interface (CLI) and an importable library. 
+
+### 3.1 End-to-End Pipeline
+The encoding pipeline proceeds through seven sequential stages:
+
+| Stage | Operation | Algorithm / Tool |
+|---|---|---|
+| 1 | Key Derivation | Argon2id (profile-driven) |
+| 2 | Optional Compression | zlib DEFLATE |
+| 3 | Authenticated Encryption | ChaCha20-Poly1305 / AES-256-GCM |
+| 4 | Expiry Timestamp Binding | UNIX epoch embedded in header |
+| 5 | Forward Error Correction | Reed-Solomon (reedsolo) |
+| 6 | LSB Steganographic Embedding | Adaptive position selector (PNG/WAV) |
+| 7 | Device-Lock Binding (optional) | Hardware fingerprint + `pepper.txt` |
+
+### 3.2 Argon2id Computational Profiles
+Key derivation is parameterised through named profiles to balance security and usability:
+- **basic**: minimal parameters for rapid testing and low-resource environments.
+- **nexus**: default production profile with moderate memory and time cost.
+- **transcendent**: high-security profile with maximum memory-hardness for sensitive long-term secrets.
+
+### 3.3 Device Binding and Pepper
+When device binding is enabled, the derived key is further conditioned on a hardware fingerprint assembled from network interface MAC addresses, CPU identifiers, and other stable system attributes. This fingerprint is combined with a locally stored pepper file (`pepper.txt`) that is never transmitted. 
+
+---
+
+## 4. Cryptographic Design
+
+### 4.1 Key Derivation: Argon2id
+The key derivation function call is parameterised as `Argon2id(password, salt, m, t, p)`, where `m` is memory cost, `t` is time cost, and `p` is degree of parallelism. A fresh 16-byte cryptographically random salt is generated per encoding operation.
+
+### 4.2 Authenticated Encryption (AEAD)
+After key derivation, the plaintext payload is encrypted using Authenticated Encryption with Associated Data. HylexCrypt's `aead_encrypt()` function attempts **ChaCha20-Poly1305** first. If unavailable, **AES-256-GCM** is used as a fallback. 
+
+### 4.3 Logical Expiry and Wipe
+Self-destruct messaging is implemented at the logical layer: an expiry timestamp is embedded in the encrypted header at encoding time. If the payload has expired upon decoding, decryption is refused and the stored message bits can be zero-filled in place using `wipe_message_bits()`.
+
+---
+
+## 5. Steganographic Design
+
+### 5.1 LSB Embedding Overview
+Least Significant Bit steganography modifies the lowest-order bit of each selected sample in a carrier file. HylexCrypt implements `lsb_embed_image()` for PNG and JPEG carriers and `lsb_embed_wav()` for WAV PCM-16 audio.
+
+### 5.2 Adaptive Position Selection
+Rather than embedding bits at sequential positions, HylexCrypt employs an evolutionary position selector that derives a pseudo-random embedding order from the Argon2id-derived key. This substantially reduces the statistical signature detectable by first-order steganalysis methods.
+
+### 5.3 Reed-Solomon Forward Error Correction
+Minor corruption of a PNG carrier can flip embedded bits and render the payload unrecoverable. HylexCrypt optionally wraps the encrypted payload in a Reed-Solomon code using the `reedsolo` library before embedding.
+
+---
+
+## 6. Comparative Evaluation
+
+### 6.1 Feature Comparison
+Comparison of HylexCrypt TU2050 against widely used open-source steganography tools:
+
+| Feature | HylexCrypt TU2050 | Steghide | OpenStego | OutGuess |
+|---|---|---|---|---|
+| **KDF Security** | Argon2id (memory-hard) | PBKDF2 | None | None |
+| **Encryption** | ChaCha20 / AES-GCM | DES / AES | AES | None |
+| **AEAD Integrity** | ✔ | ✘ | ✘ | ✘ |
+| **Device Binding** | ✔ | ✘ | ✘ | ✘ |
+| **Expiry / Self-Destruct** | ✔ | ✘ | ✘ | ✘ |
+| **FEC (Reed-Solomon)** | ✔ | ✘ | ✘ | ✘ |
+| **Audio Carrier (WAV)** | ✔ | ✘ | ✘ | ✘ |
+| **Self-Test Suite** | ✔ | ✘ | ✘ | ✘ |
+
+---
+
+## 7. Future Roadmap
+
+### 7.1 Short-Term (v1.x)
+- Robust metadata headers with versioning for forward compatibility.
+- DCT-domain embedding for JPEG carriers, eliminating the lossy-carrier limitation.
+- Adaptive FEC strength based on estimated carrier noise level.
+
+### 7.2 Mid-Term
+- Post-quantum Key Encapsulation Mechanism (KEM) integration using **CRYSTALS-Kyber**.
+- Digital signature layer using **CRYSTALS-Dilithium** for payload authentication.
+
+### 7.3 Long-Term (TU2050 Vision)
+- GAN-based neural steganography for near-zero statistical detectability.
+- Multi-carrier payload distribution.
+- Zero-knowledge proof of payload authenticity.
+
+The 'TU2050' designator reflects the project's explicit orientation toward the security landscape of the mid-21st century: a world where quantum computers threaten RSA, AI-powered steganalysis is routine, and privacy-preserving communication is fundamental infrastructure.

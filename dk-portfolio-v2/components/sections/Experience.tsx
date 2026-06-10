@@ -41,7 +41,7 @@ const EXPERIENCES = [
     duration: "JUN 2024 - AUG 2024",
     type: "Internship",
     description:
-      "During my internship at Agratas Edutech, I gained hands-off experience in Cybersecurity.I was responsible for tasks such as  conducting research, assisting with project development, which helped me apply my academic knowledge in a professional setting.",
+      "During my internship at Agratas Edutech, I gained hands-on experience in Cybersecurity.I was responsible for tasks such as  conducting research, assisting with project development, which helped me apply my academic knowledge in a professional setting.",
     icon: ShieldCheck,
     color: "#F714E4",
   },

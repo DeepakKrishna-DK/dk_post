@@ -1,28 +1,55 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { POSTS } from "@/lib/blog-data";
-import { ArrowLeft, Calendar, Clock, Tag, Users, ArrowUpRight, BookOpen, FileText } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag, Users, ArrowUpRight, BookOpen, FileText, Share2 } from "lucide-react";
 import PageWrapper from "@/components/ui/PageWrapper";
+import { getPostSlugs, getPostBySlug, getAllPosts } from "@/lib/mdx";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 
 export async function generateStaticParams() {
-  return POSTS.map((p) => ({ slug: p.slug }));
+  const slugs = getPostSlugs();
+  return slugs.map((slug) => ({ slug: slug.replace(/\.mdx?$/, "") }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const post = POSTS.find((p) => p.slug === slug);
+  const post = getPostBySlug(slug);
   if (!post) return { title: "Not Found" };
+
+  const siteUrl = "https://dk-portfolio.vercel.app";
+
   return {
-    title: `${post.title} | Deepak P S`,
-    description: post.excerpt,
+    title: `${post.meta.title} | Deepak P S - Research & Insights`,
+    description: post.meta.excerpt,
+    openGraph: {
+      title: post.meta.title,
+      description: post.meta.excerpt,
+      url: `${siteUrl}/blog/${slug}`,
+      type: "article",
+      publishedTime: post.meta.date,
+      authors: ["Deepak P S"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.meta.title,
+      description: post.meta.excerpt,
+    }
   };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = POSTS.find((p) => p.slug === slug);
-  if (!post) notFound();
+  const postData = getPostBySlug(slug);
+  if (!postData) notFound();
+
+  const post = postData.meta;
+  const content = postData.content;
+  const allPosts = getAllPosts();
+  
+  // Create share URL (assuming deployed to a specific domain, we'll use a placeholder or relative)
+  const shareUrl = `https://dk-portfolio.vercel.app/blog/${slug}`;
+  const linkedInShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
 
   return (
     <PageWrapper>
@@ -30,7 +57,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <div className="max-w-5xl mx-auto px-4 md:px-8">
         {/* Back */}
         <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-[#7A93B2] hover:text-[#00E5FF] transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" /> Back to Blog
+          <ArrowLeft className="w-4 h-4" /> Back to Research & Insights
         </Link>
 
         {/* Header */}
@@ -48,6 +75,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <span className="flex items-center gap-1.5 text-xs text-[#7A93B2]">
               <Clock className="w-3.5 h-3.5" /> {post.readTime}
             </span>
+            
+            {/* Share Button */}
+            <a href={linkedInShareUrl} target="_blank" rel="noopener noreferrer" className="ml-auto inline-flex items-center gap-1.5 px-3 py-1 bg-[#0A66C2]/10 text-[#0A66C2] border border-[#0A66C2]/30 rounded-full text-xs font-bold hover:bg-[#0A66C2]/20 transition-colors">
+              <Share2 className="w-3.5 h-3.5" /> Share on LinkedIn
+            </a>
           </div>
 
           <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-5">{post.title}</h1>
@@ -102,56 +134,36 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           ))}
         </div>
 
-        {/* Article body placeholder */}
-        <div className="prose prose-invert max-w-none mt-16">
-          <div className="card p-12 md:p-16 text-center space-y-6 border border-white/10 bg-[#02060D]/50 backdrop-blur-xl">
-            <div className="flex justify-center mb-4">
-              {post.externalLink ? (
-                <div className="w-20 h-20 bg-[#00E5FF]/10 border border-[#00E5FF]/30 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(0,229,255,0.2)]">
-                  <BookOpen className="w-10 h-10 text-[#00E5FF]" />
-                </div>
-              ) : (
-                <div className="w-20 h-20 bg-[#00FF66]/10 border border-[#00FF66]/30 rounded-2xl flex items-center justify-center shadow-[0_0_30px_rgba(0,255,102,0.2)]">
-                  <FileText className="w-10 h-10 text-[#00FF66]" />
-                </div>
-              )}
+        {/* Article Body */}
+        <div className="prose prose-invert prose-cyan max-w-none mt-16 prose-p:text-[#94A3B8] prose-headings:text-white prose-a:text-[#00E5FF] hover:prose-a:text-[#00FF66] prose-strong:text-white prose-code:text-[#00FF66] prose-code:bg-[#00FF66]/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#02060D] prose-pre:border prose-pre:border-white/10">
+          <MDXRemote source={content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+          
+          {post.externalLink && (
+            <div className="mt-12 pt-8 border-t border-white/10 flex justify-center">
+              <a href={post.externalLink} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex text-base py-3 px-8">
+                View Full Publication <ArrowUpRight className="w-5 h-5 ml-1.5" />
+              </a>
             </div>
-            <h2 className="text-white text-2xl md:text-3xl font-bold tracking-tight">
-              {post.externalLink ? "Published in External Volume" : "Full Article Coming Soon"}
-            </h2>
-            <p className="text-[#7A93B2] text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-              {post.statusMessage || `The full content for ${post.title} is being finalized. Check back soon.`}
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mt-8 pt-4">
-              {post.externalLink && (
-                <a href={post.externalLink} target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex text-base py-3 px-8">
-                  View Publication <ArrowUpRight className="w-5 h-5 ml-1.5" />
-                </a>
-              )}
-              <Link href="/blog" className="px-8 py-3 bg-white/5 border border-white/10 rounded-lg text-white font-bold text-base hover:bg-white/10 transition-colors">
-                ← Back to Articles
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
 
         {/* Related posts */}
-        <div className="mt-16">
+        <div className="mt-20 pt-10 border-t border-white/10">
           <h3 className="text-lg font-bold text-white mb-6">Related Articles</h3>
           <div className="grid sm:grid-cols-2 gap-4">
-            {POSTS.filter((p) => p.slug !== slug).slice(0, 2).map((p) => (
+            {allPosts.filter((p) => p.slug !== slug).slice(0, 2).map((p) => (
               <Link key={p.slug} href={`/blog/${p.slug}`}>
-                <div className="card-hover p-5 group">
+                <div className="card-hover p-5 group h-full">
                   <span
                     className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase font-mono mb-3"
-                    style={{ color: p.categoryColor, background: `${p.categoryColor}15` }}
+                    style={{ color: p.meta.categoryColor, background: `${p.meta.categoryColor}15` }}
                   >
-                    {p.categoryLabel}
+                    {p.meta.categoryLabel}
                   </span>
                   <h4 className="text-sm font-semibold text-white group-hover:text-[#00E5FF] transition-colors leading-snug">
-                    {p.title}
+                    {p.meta.title}
                   </h4>
-                  <p className="text-xs text-[#7A93B2] mt-2">{p.readTime}</p>
+                  <p className="text-xs text-[#7A93B2] mt-2">{p.meta.readTime}</p>
                 </div>
               </Link>
             ))}

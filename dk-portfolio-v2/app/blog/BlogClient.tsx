@@ -4,9 +4,13 @@ import { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, Clock, Calendar, Search, Filter } from "lucide-react";
-import { POSTS, type BlogPost } from "@/lib/blog-data";
+import { BlogPost } from "@/lib/blog-data";
 import { SplitText } from "@/components/ui/fancy-components";
 import { TiltCard } from "@/components/ui/TiltCard";
+
+interface BlogClientProps {
+  posts: BlogPost[];
+}
 
 const CATEGORIES = [
   { id: "all", label: "All Articles" },
@@ -32,16 +36,16 @@ const itemVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-export default function BlogClient() {
+export default function BlogClient({ posts }: BlogClientProps) {
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
 
-  const featured = POSTS.find((p) => p.featured);
-  const filtered = POSTS.filter((p) => {
+  const featured = posts.find((p) => p.featured);
+  const filtered = posts.filter((p) => {
     const matchCat = filter === "all" || p.category === filter;
     const matchSearch = p.title.toLowerCase().includes(search.toLowerCase()) ||
       p.excerpt.toLowerCase().includes(search.toLowerCase()) ||
-      p.tags.some((t) => t.toLowerCase().includes(search.toLowerCase()));
+      (p.tags && p.tags.some((t) => t.toLowerCase().includes(search.toLowerCase())));
     return matchCat && matchSearch;
   });
 

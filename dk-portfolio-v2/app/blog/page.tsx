@@ -7,11 +7,15 @@ export const metadata: Metadata = {
 };
 
 import PageWrapper from "@/components/ui/PageWrapper";
+import { getAllPosts } from "@/lib/mdx";
 
 export default function BlogPage() {
+  const postsData = getAllPosts();
+  const posts = postsData.map(p => ({ ...p.meta, slug: p.slug }));
+
   return (
     <PageWrapper>
-      <BlogClient />
+      <BlogClient posts={posts} />
     </PageWrapper>
   );
 }
