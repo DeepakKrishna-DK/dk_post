@@ -3,6 +3,8 @@ import { Inter, Orbitron, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", display: "swap" });
@@ -31,7 +33,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
+    <html lang="en">
       <body className={`${inter.variable} ${orbitron.variable} ${jetbrainsMono.variable} antialiased bg-[#02060D] text-[#F1F5F9] relative`}>
         {/* Global Background Layer */}
         <div className="fixed inset-0 z-[-1] pointer-events-none bg-[#02060D]">
@@ -41,9 +43,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.03)_0%,transparent_50%)]" />
         </div>
 
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <SmoothScrollProvider>
+          <CustomCursor />
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScrollProvider>
       </body>
     </html>
   );

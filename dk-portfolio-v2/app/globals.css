@@ -40,11 +40,31 @@
     min-height: 100vh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    /* Deep noise texture removed for maximum scroll performance */
     background-image: radial-gradient(circle at 50% 0%, rgba(8, 145, 178, 0.1) 0%, transparent 50%);
+  }
+  
+  /* Animated Cinematic Noise */
+  body::after {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: 9997;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    animation: noiseAnimation 8s steps(10) infinite;
+    opacity: 0.8;
   }
 
   ::selection { background: rgba(0, 229, 255, 0.25); color: #00E5FF; }
+
+  @media (pointer: fine) {
+    body, a, button, .cursor-pointer {
+      cursor: none !important;
+    }
+  }
 }
 
 @layer utilities {
@@ -243,4 +263,18 @@
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1) translateZ(0); }
   50% { opacity: 0.4; transform: scale(0.8) translateZ(0); }
+}
+
+@keyframes noiseAnimation {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(-10%, 5%); }
+  30% { transform: translate(5%, -10%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 10%); }
+  80% { transform: translate(-15%, 0); }
+  90% { transform: translate(10%, 5%); }
+  100% { transform: translate(5%, 0); }
 }

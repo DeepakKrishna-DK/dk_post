@@ -67,18 +67,30 @@ export default function LogoLoop({
         </>
       )}
 
-      <motion.div
+      <style>{`
+        @keyframes marquee-left {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+          0% { transform: translateX(-50%); }
+          100% { transform: translateX(0%); }
+        }
+        .animate-marquee-left {
+          animation: marquee-left var(--marquee-duration) linear infinite;
+        }
+        .animate-marquee-right {
+          animation: marquee-right var(--marquee-duration) linear infinite;
+        }
+      `}</style>
+
+      <div
         ref={containerRef}
-        className="flex shrink-0 items-center optimize-gpu"
-        style={{ willChange: "transform" }}
-        animate={{
-          x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
-        }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration: currentDuration,
-        }}
+        className={`flex shrink-0 items-center optimize-gpu ${direction === "left" ? "animate-marquee-left" : "animate-marquee-right"}`}
+        style={{ 
+          willChange: "transform",
+          "--marquee-duration": `${currentDuration}s`,
+        } as React.CSSProperties}
       >
         {/* Render two identical blocks for a seamless loop */}
         {[0, 1].map((blockIdx) => (
@@ -126,8 +138,12 @@ export default function LogoLoop({
                           }}
                         />
                       ) : null}
-                      <span className={logo.src ? 'hidden' : ''}>
-                        {logo.title?.substring(0, 2).toUpperCase()}
+                      <span className={logo.src ? 'hidden' : 'flex items-center justify-center'} style={{ color: color }}>
+                        {logo.customIcon ? (
+                          <logo.customIcon size={logoHeight * 0.5} strokeWidth={1.5} />
+                        ) : (
+                          logo.title?.substring(0, 2).toUpperCase()
+                        )}
                       </span>
                     </div>
                   </motion.div>
@@ -140,7 +156,7 @@ export default function LogoLoop({
             })}
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }

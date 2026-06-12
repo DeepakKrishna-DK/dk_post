@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Wrench, Network, Lock, Cloud, Code2 } from "lucide-react";
+import { Shield, Wrench, Network, Lock, Cloud, Code2, ShieldAlert, Target, Activity, Crosshair, Radar, KeySquare, Search, ShieldCheck, Server, AlertTriangle } from "lucide-react";
 import LogoLoop from "../ui/LogoLoop";
 
 const COLORS = ["#00E5FF", "#00FF66", "#F97316", "#8B5CF6", "#F43F5E", "#3B82F6", "#EAB308", "#10B981", "#EC4899", "#A855F7"];
@@ -11,15 +11,15 @@ const SKILL_CATEGORIES = [
     title: "Cybersecurity & Pentesting",
     icon: Shield,
     skills: [
-      { name: "Ethical Hacking" },
-      { name: "VAPT" },
-      { name: "Threat Modelling" },
-      { name: "Incident Response" },
-      { name: "MITRE ATT&CK" },
-      { name: "SOC Operations" },
-      { name: "Privilege Escalation" },
-      { name: "CVE Analysis" },
-      { name: "OWASP Top 10" },
+      { name: "Ethical Hacking", customIcon: ShieldCheck },
+      { name: "VAPT", customIcon: Target },
+      { name: "Threat Modelling", customIcon: ShieldAlert },
+      { name: "Incident Response", customIcon: Activity },
+      { name: "MITRE ATT&CK", customIcon: Crosshair },
+      { name: "SOC Operations", customIcon: Radar },
+      { name: "Privilege Escalation", customIcon: KeySquare },
+      { name: "CVE Analysis", customIcon: Search },
+      { name: "OWASP Top 10", customIcon: AlertTriangle },
     ]
   },
   {
@@ -39,13 +39,13 @@ const SKILL_CATEGORIES = [
     title: "Network & Infrastructure",
     icon: Network,
     skills: [
-      { name: "IDS/IPS" },
-      { name: "SIEM" },
-      { name: "Firewall Engineering" },
-      { name: "TCP/IP" },
-      { name: "DNS" },
-      { name: "HTTP/S" },
-      { name: "Zero Trust Architecture" },
+      { name: "IDS/IPS", customIcon: Shield },
+      { name: "SIEM", customIcon: Activity },
+      { name: "Firewall Engineering", customIcon: Server },
+      { name: "TCP/IP", customIcon: Network },
+      { name: "DNS", customIcon: Search },
+      { name: "HTTP/S", customIcon: Lock },
+      { name: "Zero Trust Architecture", customIcon: ShieldCheck },
       { name: "Linux Hardening", logo: "linux" },
     ]
   },
@@ -53,9 +53,9 @@ const SKILL_CATEGORIES = [
     title: "Cryptography",
     icon: Lock,
     skills: [
-      { name: "AES-256" },
-      { name: "RSA" },
-      { name: "LSB Steganography" },
+      { name: "AES-256", customIcon: Lock },
+      { name: "RSA", customIcon: KeySquare },
+      { name: "LSB Steganography", customIcon: Search },
     ]
   },
   {
@@ -88,6 +88,7 @@ const techLogos = ALL_SKILLS.map((skill, index) => {
     title: skill.name,
     alt: skill.name,
     color: color,
+    customIcon: skill.customIcon,
   };
 });
 
