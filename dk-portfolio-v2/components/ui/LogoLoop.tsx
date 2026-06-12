@@ -81,7 +81,7 @@ export default function LogoLoop({
             className="flex shrink-0 items-center" 
             style={{ gap: gap, paddingRight: gap }}
           >
-            {logos.map((logo, i) => {
+            {logos.map((logo: any, i: number) => {
               const color = logo.color || "#00E5FF";
               return (
                 <div 

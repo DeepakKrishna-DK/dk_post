@@ -187,7 +187,7 @@ export default function Hero() {
             <a href="#projects" className="btn-primary group text-lg px-8 py-4">
               View Projects <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </a>
-            <a href="https://drive.google.com/file/d/1bSaa_YTSRR6KSOw2rdzAkWtH03qJc5QX/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-outline group text-lg px-8 py-4">
+            <a href="https://drive.google.com/file/d/1YMYZo5YKGx5zO6lr9xC56HZK1EhWnbGf/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="btn-outline group text-lg px-8 py-4">
               View Resume <Download className="w-5 h-5 ml-1 group-hover:translate-y-1 transition-transform duration-300" />
             </a>
           </motion.div>
