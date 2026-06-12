@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export default function LogoLoop({
   logos = [],
   speed = 50,
-  direction = "left",
+  direction = "right",
   logoHeight = 60,
   gap = 60,
   hoverSpeed = 0,
@@ -63,6 +63,7 @@ export default function LogoLoop({
       )}
 
       <motion.div
+        ref={containerRef}
         className="flex shrink-0 items-center optimize-gpu"
         style={{ willChange: "transform" }}
         animate={{
