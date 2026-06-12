@@ -21,7 +21,14 @@ export default function LogoLoop({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        setContainerWidth(entries[0].target.scrollWidth / 2);
+      }
+    });
+
     if (containerRef.current) {
+      observer.observe(containerRef.current);
       setContainerWidth(containerRef.current.scrollWidth / 2);
     }
     
@@ -31,20 +38,18 @@ export default function LogoLoop({
       const isTouch = typeof window !== 'undefined' && (('ontouchstart' in window) || (navigator.maxTouchPoints > 0));
       
       setIsMobile(userAgentMatch || isIPadOS || window.innerWidth < 1024 || (isTouch && window.innerWidth <= 1366));
-
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.scrollWidth / 2);
-      }
     };
     
     handleResize(); // Initial check
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      observer.disconnect();
+    };
   }, [logos, gap]);
 
-  // If we pause on hover, duration becomes massive so it "stops". 
-  // Otherwise, calculate duration based on speed and width.
-  const duration = speed > 0 ? (containerWidth / speed) : 20;
+  // If containerWidth is 0 (e.g. before mount), use a fallback duration so the animation doesn't skip
+  const duration = (speed > 0 && containerWidth > 0) ? (containerWidth / speed) : 30;
   const currentDuration = (isHovered && hoverSpeed === 0) ? 999999 : duration;
 
   return (
