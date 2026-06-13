@@ -76,12 +76,12 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-16 space-y-4"
         >
-          <div className="section-eyebrow justify-center">GET in Touch</div>
+          <div className="section-eyebrow justify-center">Open to opportunities</div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
-            Let&apos;s Build something <span className="text-[#00E5FF]">Together</span> <br /> Initiate Secure <span className="text-[#00E5FF]">Connection</span>
+            Let&apos;s Build <span className="text-gradient-cyber">Together</span>
           </h2>
-          <p className="text-[#7A93B2] max-w-2xl mx-auto text-lg">
-            I&apos;m always open to new challenges & opportunities, security assessments, and innovative collaborations. Feel free to reach out!
+          <p className="text-[#7A93B2] max-w-2xl mx-auto text-lg mt-4">
+            Initiate a secure connection — I&apos;m always open to new challenges, security assessments, and innovative collaborations.
           </p>
         </motion.div>
 
@@ -122,15 +122,17 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-xs font-mono text-[#7A93B2] mb-2 uppercase tracking-wider">
+                    <label htmlFor="contact-name" className="block text-xs font-mono text-[#7A93B2] mb-2 uppercase tracking-wider">
                       Name
                     </label>
                     <div className="relative group">
                       <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7A93B2] group-focus-within:text-[#00E5FF]" />
                       <input
+                        id="contact-name"
                         type="text"
                         name="name"
                         required
+                        aria-required="true"
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
                         className="w-full pl-12 pr-4 py-3.5 bg-[#02060D]/50 border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-[#00E5FF]/50 focus:bg-[#02060D] transition-all"
@@ -139,15 +141,17 @@ export default function Contact() {
                     </div>
                   </div>
                   <div>
-                    <label className="block text-xs font-mono text-[#7A93B2] mb-2 uppercase tracking-wider">
+                    <label htmlFor="contact-email" className="block text-xs font-mono text-[#7A93B2] mb-2 uppercase tracking-wider">
                       Email
                     </label>
                     <div className="relative group">
                       <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#7A93B2] group-focus-within:text-[#00E5FF]" />
                       <input
+                        id="contact-email"
                         type="email"
                         name="email"
                         required
+                        aria-required="true"
                         value={form.email}
                         onChange={(e) => setForm({ ...form, email: e.target.value })}
                         className="w-full pl-12 pr-4 py-3.5 bg-[#02060D]/50 border border-white/10 rounded-lg text-sm text-white focus:outline-none focus:border-[#00E5FF]/50 focus:bg-[#02060D] transition-all"
@@ -158,13 +162,15 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-mono text-[#7A93B2] mb-2 uppercase tracking-wider">
+                  <label htmlFor="contact-message" className="block text-xs font-mono text-[#7A93B2] mb-2 uppercase tracking-wider">
                     Message
                   </label>
                   <div className="relative group">
                     <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-[#7A93B2] group-focus-within:text-[#00E5FF]" />
                     <textarea
+                      id="contact-message"
                       required
+                      aria-required="true"
                       name="message"
                       rows={5}
                       value={form.message}

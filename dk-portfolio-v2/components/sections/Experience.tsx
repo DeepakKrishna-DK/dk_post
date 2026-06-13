@@ -60,7 +60,7 @@ export default function Experience() {
     <section id="experience" className="py-24 relative" ref={containerRef}>
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="w-full max-w-[2000px] mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -68,9 +68,9 @@ export default function Experience() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <div className="section-eyebrow justify-center mb-3">Professional Track Record</div>
+          <div className="section-eyebrow justify-center mb-3">Professional track record</div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Work <span className="text-primary">Experience</span>
+            Work <span className="text-gradient-cyber">Experience</span>
           </h2>
         </motion.div>
 
@@ -98,7 +98,7 @@ export default function Experience() {
                 >
                   {/* Timeline Dot */}
                   <div
-                    className="absolute left-6 md:left-[2.5rem] w-10 h-10 rounded-xl flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(0,229,255,0.2)]"
+                    className="absolute left-6 md:left-[2.5rem] w-10 h-10 rounded-full flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(0,229,255,0.2)]"
                     style={{ background: "var(--color-background)", border: `2px solid ${exp.color}` }}
                   >
                     <Icon className="w-4 h-4" style={{ color: exp.color }} />

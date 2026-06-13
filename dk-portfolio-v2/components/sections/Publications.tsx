@@ -45,7 +45,7 @@ export default function Publications() {
     <section id="publications" className="py-24 relative" ref={containerRef}>
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      <div className="w-full max-w-5xl mx-auto px-4 sm:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,9 +53,9 @@ export default function Publications() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <div className="section-eyebrow justify-center mb-3">Academic Contributions</div>
+          <div className="section-eyebrow justify-center mb-3">Academic contributions</div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Selected <span className="text-primary">Publications</span>
+            Research & <span className="text-gradient-cyber">Publications</span>
           </h2>
         </motion.div>
 
@@ -81,7 +81,7 @@ export default function Publications() {
               >
                 {/* Timeline Dot */}
                 <div
-                  className="absolute left-6 md:left-[2.5rem] w-10 h-10 rounded-xl flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(0,229,255,0.2)]"
+                  className="absolute left-6 md:left-[2.5rem] w-10 h-10 rounded-full flex items-center justify-center -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(0,229,255,0.2)]"
                   style={{ background: "var(--color-background)", border: `2px solid #00E5FF` }}
                 >
                   <BookOpen className="w-4 h-4 text-[#00E5FF]" />
@@ -89,7 +89,11 @@ export default function Publications() {
 
                 {/* Content Card */}
                 <div className="w-full">
-                  <div className="card-hover p-6 md:p-8 relative overflow-hidden group">
+                  <div className={`card-hover p-6 md:p-8 relative overflow-hidden group ${
+                      i === 0
+                        ? "border border-[#D6982C]/40 bg-[#D6982C]/5 shadow-[0_0_30px_rgba(214,152,44,0.12)]"
+                        : ""
+                    }`}>
                     <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
                     <div className="flex flex-col gap-3 relative z-10">

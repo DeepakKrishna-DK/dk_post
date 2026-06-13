@@ -47,9 +47,9 @@ export default function Education() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center mb-16"
         >
-          <div className="section-eyebrow justify-center mb-3">Academic Background</div>
+          <div className="section-eyebrow justify-center mb-3">Academic background</div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Education & <span className="text-[#00E5FF]">Training</span>
+            Education & <span className="text-gradient-cyber">Training</span>
           </h2>
         </motion.div>
 

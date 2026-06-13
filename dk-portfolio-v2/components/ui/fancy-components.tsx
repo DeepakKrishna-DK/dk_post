@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useSpring, useInView } from "framer-motion";
 
 // --- CLICK SPARK ---
 export const ClickSpark = ({
@@ -79,19 +79,31 @@ export const ClickSpark = ({
 
 // --- SPLIT TEXT ---
 export const SplitText = ({ text, className, delay = 0.5 }: any) => {
-  const chars = text.split("");
+  const words = text.split(" ");
+  let letterIndex = 0;
+
   return (
     <div className={`flex flex-wrap ${className}`}>
-      {chars.map((char: string, i: number) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: delay + i * 0.05, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="inline-block"
-        >
-          {char === " " ? "\u00A0" : char}
-        </motion.span>
+      {words.map((word: string, wordIndex: number) => (
+        <div key={wordIndex} className="inline-flex whitespace-nowrap">
+          {word.split("").map((char: string, i: number) => {
+            const currentIdx = letterIndex++;
+            return (
+              <motion.span
+                key={currentIdx}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: delay + currentIdx * 0.05, ease: [0.21, 0.47, 0.32, 0.98] }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            );
+          })}
+          {wordIndex !== words.length - 1 && (
+            <span className="inline-block">{"\u00A0"}</span>
+          )}
+        </div>
       ))}
     </div>
   );
@@ -173,4 +185,42 @@ export const DecryptedText = ({
       {displayText}
     </motion.span>
   );
+};
+
+// --- ANIMATED NUMBER ---
+export const AnimatedNumber = ({
+  value,
+  suffix = "",
+  decimals = 0,
+}: {
+  value: number;
+  suffix?: string;
+  decimals?: number;
+}) => {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, {
+    damping: 50,
+    stiffness: 100,
+  });
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  useEffect(() => {
+    if (isInView) {
+      motionValue.set(value);
+    }
+  }, [motionValue, isInView, value]);
+
+  useEffect(() => {
+    return springValue.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = Intl.NumberFormat("en-US", {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        }).format(latest) + suffix;
+      }
+    });
+  }, [springValue, decimals, suffix]);
+
+  return <span ref={ref}>{0 + suffix}</span>;
 };

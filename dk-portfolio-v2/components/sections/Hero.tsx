@@ -83,6 +83,10 @@ export default function Hero() {
 
         {/* Subtle top-right glow */}
         <div className="absolute inset-0 opacity-[0.2] pointer-events-none bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/40 via-transparent to-transparent" />
+        
+        {/* Deep ambient terminal glows (Cyberpunk style) */}
+        <div className="absolute left-1/4 top-1/4 w-[600px] h-[600px] bg-[#00FF66]/5 blur-[160px] rounded-full pointer-events-none mix-blend-screen" />
+        <div className="absolute right-1/4 bottom-1/4 w-[500px] h-[500px] bg-[#00E5FF]/5 blur-[140px] rounded-full pointer-events-none mix-blend-screen" />
       </div>
 
       <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-8 z-10 pt-16 pb-36 lg:pb-16 flex flex-col items-center text-center">
@@ -154,26 +158,15 @@ export default function Hero() {
                 Available For Internships
               </div>
             </div>
-
-            <div className="flex flex-wrap justify-center gap-4 max-w-4xl">
-              {[
-                "Security Analyst",
-                "Cyber Security Analyst",
-                "Penetration Tester",
-                "SOC Analyst",
-                "Security Researcher"
-              ].map((role, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.9 + i * 0.1, duration: 0.5 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  className="px-6 py-3 rounded-xl bg-surface/40 backdrop-blur-xl border border-white/5 hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_30px_rgba(0,229,255,0.15)] transition-all cursor-default text-sm sm:text-base font-medium text-foreground drop-shadow-md optimize-gpu"
-                >
-                  {role}
-                </motion.div>
-              ))}
+            
+            {/* Target Internship Roles */}
+            <div className="flex flex-col items-center mt-8 w-full relative">
+              <span className="text-[10px] sm:text-xs font-mono text-muted/60 uppercase tracking-[0.2em] mb-4">Targeting Roles</span>
+              <div className="flex flex-wrap justify-center gap-3">
+                <span className="px-4 py-1.5 text-xs sm:text-sm font-mono text-[#00E5FF] bg-[#00E5FF]/5 border border-[#00E5FF]/20 rounded-md shadow-[0_0_10px_rgba(0,229,255,0.05)] hover:shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:bg-[#00E5FF]/10 transition-all cursor-default">Cybersecurity Engineering</span>
+                <span className="px-4 py-1.5 text-xs sm:text-sm font-mono text-[#00FF66] bg-[#00FF66]/5 border border-[#00FF66]/20 rounded-md shadow-[0_0_10px_rgba(0,255,102,0.05)] hover:shadow-[0_0_15px_rgba(0,255,102,0.2)] hover:bg-[#00FF66]/10 transition-all cursor-default">Security Research</span>
+                <span className="px-4 py-1.5 text-xs sm:text-sm font-mono text-[#00E5FF] bg-[#00E5FF]/5 border border-[#00E5FF]/20 rounded-md shadow-[0_0_10px_rgba(0,229,255,0.05)] hover:shadow-[0_0_15px_rgba(0,229,255,0.2)] hover:bg-[#00E5FF]/10 transition-all cursor-default">Penetration Testing</span>
+              </div>
             </div>
           </motion.div>
 

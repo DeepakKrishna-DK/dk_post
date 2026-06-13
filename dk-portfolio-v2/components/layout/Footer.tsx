@@ -1,13 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, GitBranch, Link2, MessageCircle, Mail } from "lucide-react";
+import { Shield, GitBranch, Link2, Mail } from "lucide-react";
 import Link from "next/link";
 
 const SOCIALS = [
   { icon: Link2, href: "https://www.linkedin.com/in/deepak-p-s", label: "LinkedIn" },
   { icon: GitBranch, href: "https://github.com/DeepakKrishna-DK", label: "GitHub" },
-  { icon: MessageCircle, href: "https://twitter.com", label: "Twitter" },
   { icon: Mail, href: "mailto:deepakkrishnark@gmail.com", label: "Email" },
 ];
 

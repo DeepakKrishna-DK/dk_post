@@ -98,6 +98,7 @@ export default function LogoLoop({
             key={blockIdx} 
             className="flex shrink-0 items-center" 
             style={{ gap: gap, paddingRight: gap }}
+            aria-hidden={blockIdx === 1 ? "true" : undefined}
           >
             {logos.map((logo: any, i: number) => {
               const color = logo.color || "#00E5FF";

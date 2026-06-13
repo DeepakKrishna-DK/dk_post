@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { AnimatedNumber } from "../ui/fancy-components";
 
 const STATS = [
-  { value: "5+", label: "SECURITY PROJECTS BUILT" },
-  { value: "2", label: "RESEARCH PAPERS PUBLISHED" },
-  { value: "100%", label: "ZERO-TRUST FOCUS" },
-  { value: "8.1", label: "ACADEMIC CGPA" },
+  { value: 5, suffix: "+", label: "SECURITY PROJECTS BUILT" },
+  { value: 2, suffix: "", label: "RESEARCH PAPERS PUBLISHED" },
+  { value: 100, suffix: "%", label: "ZERO-TRUST FOCUS" },
+  { value: 8.1, suffix: "", decimals: 1, label: "ACADEMIC CGPA" },
 ];
 
 export default function About() {
@@ -26,11 +27,11 @@ export default function About() {
             className="space-y-6 optimize-gpu"
           >
             <div>
-              <div className="text-primary font-bold tracking-[0.2em] uppercase text-sm mb-4">
+              <div className="section-eyebrow mb-4">
                 WHO I AM
               </div>
               <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight mb-8">
-                About <span className="text-gradient-cyan">Me</span>
+                About <span className="text-gradient-cyber">Me</span>
               </h2>
             </div>
 
@@ -92,7 +93,7 @@ export default function About() {
                 className="glass-panel p-8 flex flex-col items-center justify-center text-center transition-transform hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(0,229,255,0.1)] optimize-gpu"
               >
                 <div className="text-4xl sm:text-5xl font-bold mb-3 text-gradient-cyan">
-                  {stat.value}
+                  <AnimatedNumber value={stat.value} suffix={stat.suffix} decimals={stat.decimals} />
                 </div>
                 <div className="text-[10px] sm:text-xs font-bold tracking-widest text-muted/80 uppercase">
                   {stat.label}

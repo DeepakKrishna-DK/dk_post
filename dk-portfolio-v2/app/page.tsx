@@ -6,8 +6,7 @@ import Projects from "@/components/sections/Projects";
 import Certifications from "@/components/sections/Certifications";
 import Education from "@/components/sections/Education";
 import Publications from "@/components/sections/Publications";
-import Achievements from "@/components/sections/Achievements";
-import Dashboard from "@/components/sections/Dashboard";
+import Recognition from "@/components/sections/Recognition";
 import Contact from "@/components/sections/Contact";
 import Experience from "@/components/sections/Experience";
 import PageWrapper from "@/components/ui/PageWrapper";
@@ -29,8 +28,7 @@ export default function Home() {
       <Skills />
       <Education />
       <Certifications />
-      <Achievements />
-      <Dashboard />
+      <Recognition />
       <Contact />
     </PageWrapper>
   );

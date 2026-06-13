@@ -8,7 +8,8 @@ import { TiltCard } from "../ui/TiltCard";
 const PROJECTS = [
   {
     id: "RUDRAS",
-    title: "Rudras - A Cognitive Immunological Defense_Firewall (In-Dev)",
+    title: "Rudras — Cognitive Immunological Defense Firewall",
+    status: "In Development",
     description: "The core architecture is currently in development and undergoing rigorous validation. Coming Soon to Windows. We are pushing the boundaries of what a firewall can become. Stay tuned for further updates as the evolution continues.",
     tech: ["Rust", "IDS/IPS", "Firewall", "Zero-Trust", "Networks"],
     categoryLabel: "Firewall",
@@ -103,9 +104,9 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-16 optimize-gpu"
         >
-          <div className="section-eyebrow justify-center mb-3">Operations</div>
+          <div className="section-eyebrow justify-center mb-3">Security operations</div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Featured <span className="text-[#00E5FF]">Projects</span>
+            Featured <span className="text-gradient-cyber">Projects</span>
           </h2>
         </motion.div>
 
@@ -156,10 +157,13 @@ export default function Projects() {
               >
                 <TiltCard className="h-full w-full">
                   <div
-                    className={`relative h-full flex flex-col bg-[#02060D] rounded-2xl overflow-hidden transition-all duration-300 ${isActive
-                      ? "shadow-[0_0_30px_rgba(6,182,212,0.2)] border-2 border-[#00E5FF]/50"
-                      : "border border-white/10"
-                      }`}
+                    className={`relative h-full flex flex-col bg-[#02060D] rounded-2xl overflow-hidden transition-all duration-300 ${!isActive ? "border border-white/10" : ""}`}
+                    style={isActive ? {
+                      boxShadow: `0 0 50px 5px ${project.categoryColor}40, 0 0 100px 15px ${project.categoryColor}15`,
+                      borderColor: `${project.categoryColor}60`,
+                      borderWidth: "2px",
+                      borderStyle: "solid"
+                    } : {}}
                   >
                     {/* Glowing background for active card */}
                     {isActive && (
@@ -179,6 +183,11 @@ export default function Projects() {
                       >
                         {project.categoryLabel}
                       </span>
+                      {project.status && (
+                        <span className="absolute top-4 right-4 tag text-[10px] text-[#F97316] bg-[#F97316]/10 border border-[#F97316]/30">
+                          {project.status}
+                        </span>
+                      )}
                     </div>
 
                     {/* Content */}
@@ -206,7 +215,7 @@ export default function Projects() {
                           }}
                           className={`btn-primary w-full justify-center py-2.5 text-xs tracking-wider uppercase font-mono ${!isActive ? "opacity-50 pointer-events-none" : ""}`}
                         >
-                          View Data
+                          View on GitHub
                         </button>
                       </div>
                     </div>

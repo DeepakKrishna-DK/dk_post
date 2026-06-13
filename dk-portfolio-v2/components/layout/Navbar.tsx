@@ -10,11 +10,11 @@ import { usePathname } from "next/navigation";
 const navLinks = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
+  { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
-  { id: "certifications", label: "Certifications" },
+  { id: "education", label: "Education" },
+  { id: "skills", label: "Skills" },
   { id: "blog", label: "Blog", isPage: true, path: "/blog" },
-  { id: "contact", label: "Contact" },
 ];
 
 export default function Navbar() {
@@ -162,7 +162,7 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed right-0 inset-y-0 z-50 w-64 bg-[#02060D]/60 backdrop-blur-2xl border-l border-white/10 flex flex-col pt-20 pb-8 px-5 lg:hidden shadow-2xl"
+              className="fixed right-0 inset-y-0 z-50 w-64 bg-[#02060D]/60 backdrop-blur-2xl border-l border-white/10 flex flex-col pt-20 pb-8 px-5 lg:hidden shadow-2xl overflow-y-auto"
             >
               {navLinks.map((l, i) => {
                 const href = l.isPage ? l.path! : (isHome ? `#${l.id}` : `/#${l.id}`);

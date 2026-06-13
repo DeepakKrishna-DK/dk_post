@@ -84,9 +84,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <div className="pt-24 pb-20 min-h-screen">
       <div className="max-w-5xl mx-auto px-4 md:px-8">
         {/* Back */}
-        <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-[#7A93B2] hover:text-[#00E5FF] transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" /> Back to Research & Insights
+        <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-mono text-[#00E5FF] hover:text-[#00FF66] transition-colors mb-8 group">
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> BACK TO LOGS
         </Link>
+
+        {/* Classification Header */}
+        <div className="mb-8 font-mono text-xs sm:text-sm text-[#00FF66] border-y border-dashed border-[#00FF66]/30 bg-[#00FF66]/5 px-4 py-2 uppercase tracking-widest flex justify-between items-center shadow-[0_0_15px_rgba(0,255,102,0.05)]">
+          <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-[#00FF66] animate-pulse"></span> STATUS: DECLASSIFIED</span>
+          <span className="opacity-50 hidden sm:inline-block">// REF: {slug.substring(0, 10).toUpperCase()}</span>
+        </div>
 
         {/* Header */}
         <div className="mb-10">
@@ -108,7 +114,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <ShareModal title={post.title} url={shareUrl} />
           </div>
 
-          <h1 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-5">{post.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-gradient-cyber leading-tight mb-5 drop-shadow-[0_0_15px_rgba(0,255,102,0.2)]">{post.title}</h1>
           <p className="text-[#7A93B2] text-lg leading-relaxed mb-6">{post.excerpt}</p>
 
           {/* Contributors */}
@@ -161,7 +167,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
 
         {/* Article Body */}
-        <div className="prose prose-invert prose-cyan max-w-none mt-16 prose-p:text-[#94A3B8] prose-headings:text-white prose-a:text-[#00E5FF] hover:prose-a:text-[#00FF66] prose-strong:text-white prose-code:text-[#00FF66] prose-code:bg-[#00FF66]/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#02060D] prose-pre:border prose-pre:border-white/10">
+        <div className="prose prose-invert prose-cyan max-w-none mt-16 prose-p:text-[#94A3B8] prose-headings:text-white prose-a:text-[#00E5FF] hover:prose-a:text-[#00FF66] prose-strong:text-white prose-code:text-[#00FF66] prose-code:bg-[#00FF66]/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#02060D] prose-pre:border prose-pre:border-[#00FF66]/30 prose-pre:shadow-[0_0_15px_rgba(0,255,102,0.05)]">
           <MDXRemote source={content} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
           
           {post.externalLink && (

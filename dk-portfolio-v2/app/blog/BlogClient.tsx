@@ -60,7 +60,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
             <motion.div variants={itemVariants}>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
                 <SplitText text="Cybersecurity " className="inline-block" delay={0.05} />
-                <span className="text-gradient-cyan">Blog</span>
+                <span className="text-gradient-cyber">Blog</span>
               </h1>
             </motion.div>
             <motion.p variants={itemVariants} className="text-muted max-w-xl mx-auto leading-relaxed text-lg">
@@ -77,7 +77,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
             <div className="section-eyebrow mb-5">Featured Article</div>
             <Link href={`/blog/${featured.slug}`}>
               <TiltCard>
-                <div className="glass-panel p-8 md:p-10 group h-full">
+                <div className="glass-panel p-8 md:p-10 group h-full transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,229,255,0.15)] hover:border-[#00E5FF]/40 bg-[#02060D]">
                   <div className="flex flex-wrap items-center gap-3 mb-5">
                     <span
                       className="tag"
@@ -116,7 +116,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
               <button
                 key={c.id}
                 onClick={() => setFilter(c.id)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === c.id ? "bg-primary text-[#02060D] shadow-[0_0_15px_rgba(0,229,255,0.4)]" : "bg-white/5 text-muted border border-white/10 hover:border-primary/40 hover:text-white"}`}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${filter === c.id ? "bg-[#00E5FF] text-[#02060D] shadow-[0_0_15px_rgba(0,229,255,0.5)] border border-[#00E5FF]" : "bg-white/5 text-muted border border-white/10 hover:border-[#00E5FF]/40 hover:text-white"}`}
               >
                 {c.label}
               </button>
@@ -143,7 +143,7 @@ export default function BlogClient({ posts }: BlogClientProps) {
           {filtered.map((post) => (
             <motion.div key={post.slug} variants={itemVariants}>
               <Link href={`/blog/${post.slug}`}>
-                <div className="glass-panel p-6 flex flex-col h-full group hover:-translate-y-2 transition-transform duration-300">
+                <div className="glass-panel p-6 flex flex-col h-full group hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,255,102,0.1)] hover:border-[#00FF66]/30 bg-[#02060D]">
                   <div className="flex items-center gap-2 mb-4">
                     <span
                       className="tag"

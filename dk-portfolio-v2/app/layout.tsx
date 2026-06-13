@@ -10,23 +10,33 @@ const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", dis
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Deepak P S | Cybersecurity Engineer",
+  title: "Deepak P S | Cybersecurity Professional",
   description:
     "I help organizations secure their digital assets, prevent cyber threats, and build resilient security systems.",
   keywords: ["Deepak P S", "Cybersecurity Engineer", "Penetration Testing", "Ethical Hacking", "Security Engineer"],
   authors: [{ name: "Deepak P S" }],
   openGraph: {
-    title: "Deepak P S | Cybersecurity Engineer",
+    title: "Deepak P S | Cybersecurity Professional",
     description: "I help organizations secure their digital assets, prevent cyber threats, and build resilient security systems.",
-    url: "https://deepakps.dev",
+    url: "https://dkrshn.vercel.app",
     siteName: "Deepak P S",
     type: "website",
+    images: [
+      {
+        url: "https://dkrshn.vercel.app/hero-bg-phoenix.png",
+        width: 1200,
+        height: 630,
+        alt: "Deepak P S — Cybersecurity Professional Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Deepak P S | Cybersecurity Engineer",
-    description: "Cybersecurity engineer protecting systems and defending futures.",
+    title: "Deepak P S | Cybersecurity Professional",
+    description: "Building intelligent cyber defense systems — threat detection, secure infrastructure, and digital resilience.",
+    images: ["https://dkrshn.vercel.app/hero-bg-phoenix.png"],
   },
+  metadataBase: new URL("https://dkrshn.vercel.app"),
   robots: { index: true, follow: true },
 };
 
